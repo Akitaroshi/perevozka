@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="space-y-16">
+    
+    <!-- Заголовок страницы -->
+    <div class="text-center space-y-3 max-w-2xl mx-auto py-8">
+        <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">Наши услуги</h1>
+        <p class="text-slate-500 dark:text-slate-400 text-lg font-medium leading-relaxed">Комплексный подход к обслуживанию вашего грузового транспорта и логистике</p>
+    </div>
+
+    <!-- Услуги СТО -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+            <div class="flex items-center space-x-4">
+                <div class="p-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-2xl"><i data-lucide="search" class="w-6 h-6"></i></div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Диагностика</h3>
+                    <p class="text-xs text-slate-400 dark:text-slate-500">Компьютерная проверка всех систем</p>
+                </div>
+            </div>
+            <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-350">
+                <li class="flex items-center"><i data-lucide="check" class="text-indigo-600 dark:text-indigo-400 w-4 h-4 mr-2"></i> Электронная диагностика</li>
+                <li class="flex items-center"><i data-lucide="check" class="text-indigo-600 dark:text-indigo-400 w-4 h-4 mr-2"></i> Проверка двигателя</li>
+                <li class="flex items-center"><i data-lucide="check" class="text-indigo-600 dark:text-indigo-400 w-4 h-4 mr-2"></i> Анализ систем</li>
+            </ul>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+            <div class="flex items-center space-x-4">
+                <div class="p-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-2xl"><i data-lucide="settings" class="w-6 h-6"></i></div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Ремонт двигателя</h3>
+                    <p class="text-xs text-slate-400 dark:text-slate-500">Профессиональный ремонт любой сложности</p>
+                </div>
+            </div>
+            <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-350">
+                <li class="flex items-center"><i data-lucide="check" class="text-indigo-600 dark:text-indigo-400 w-4 h-4 mr-2"></i> Капитальный ремонт</li>
+                <li class="flex items-center"><i data-lucide="check" class="text-indigo-600 dark:text-indigo-400 w-4 h-4 mr-2"></i> Замена деталей</li>
+                <li class="flex items-center"><i data-lucide="check" class="text-indigo-600 dark:text-indigo-400 w-4 h-4 mr-2"></i> Настройки систем</li>
+            </ul>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-4">
+            <div class="p-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-xl"><i data-lucide="wrench" class="w-5 h-5"></i></div>
+            <div><h4 class="font-bold text-slate-900 dark:text-white">Тормозная система</h4><p class="text-xs text-slate-500 dark:text-slate-400">Ремонт тормозов</p></div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-4">
+            <div class="p-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-xl"><i data-lucide="plug-zap" class="w-5 h-5"></i></div>
+            <div><h4 class="font-bold text-slate-900 dark:text-white">Электрика</h4><p class="text-xs text-slate-500 dark:text-slate-400">Ремонт электронных систем</p></div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-4">
+            <div class="p-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-xl"><i data-lucide="car" class="w-5 h-5"></i></div>
+            <div><h4 class="font-bold text-slate-900 dark:text-white">Подвеска</h4><p class="text-xs text-slate-500 dark:text-slate-400">Диагностика и ремонт</p></div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-4">
+            <div class="p-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-xl"><i data-lucide="paint-bucket" class="w-5 h-5"></i></div>
+            <div><h4 class="font-bold text-slate-900 dark:text-white">Кузовной ремонт</h4><p class="text-xs text-slate-500 dark:text-slate-400">Восстановление и покраска</p></div>
+        </div>
+    </div>
+
+    <!-- Раздел перевозки сыпучих грузов -->
+    <div class="p-8 sm:p-12 bg-gradient-to-br from-indigo-900 to-indigo-950 text-white rounded-3xl space-y-6">
+        <div class="max-w-3xl space-y-3">
+            <span class="text-indigo-400 font-bold uppercase tracking-wider text-xs">Логистика</span>
+            <h2 class="text-2xl sm:text-3xl font-black">Перевозка сыпучих грузов самосвалами</h2>
+            <p class="text-slate-300 font-medium">Предоставляем собственный современный автопарк грузовой техники и тонаров для быстрой доставки песка, щебня, гравия и других строительных материалов по региону.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 text-center">
+            <div class="p-5 bg-white/5 rounded-2xl border border-white/10"><p class="text-xl font-bold">Свои самосвалы</p><p class="text-sm text-slate-400 mt-1">Доставка от 10 тонн</p></div>
+            <div class="p-5 bg-white/5 rounded-2xl border border-white/10"><p class="text-xl font-bold">Быстрая подача</p><p class="text-sm text-slate-400 mt-1">Машина в день обращения</p></div>
+            <div class="p-5 bg-white/5 rounded-2xl border border-white/10"><p class="text-xl font-bold">Выгодные цены</p><p class="text-sm text-slate-400 mt-1">Работаем без посредников</p></div>
+        </div>
+    </div>
+
+    <!-- Форма записи -->
+    <div id="booking-section" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start pt-4 scroll-mt-20">
+        <!-- Форма -->
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 transition-colors duration-300">
+            <h3 class="text-2xl font-black text-slate-900 dark:text-white">Онлайн запись</h3>
+            
+            <form id="ajaxBookingForm" method="POST" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Ваше имя</label>
+                    {{ form.client_name }}
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Номер телефона</label>
+                    {{ form.phone }}
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Выберите услугу</label>
+                    {{ form.service_type }}
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Желаемая дата визита</label>
+                    {{ form.booking_date }}
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Комментарий</label>
+                    {{ form.comment }}
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl transition duration-150 shadow-sm active:scale-95">
+                    Записаться
+                </button>
+            </form>
+        </div>
+
+        <!-- Пояснения -->
+        <div class="bg-slate-100/50 dark:bg-slate-900/40 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 h-full transition-colors duration-300">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Как это работает?</h3>
+            <div class="space-y-4">
+                <div class="flex items-center space-x-4">
+                    <span class="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm">1</span>
+                    <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Заполните форму записи.</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm">2</span>
+                    <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Наш менеджер свяжется с вами для подтверждения.</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm">3</span>
+                    <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Приезжайте в назначенное время.</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-200 dark:border-slate-800 pt-6 space-y-3">
+                <h4 class="font-bold text-slate-900 dark:text-white">Контактные данные СТО</h4>
+                <div class="flex items-center space-x-3 text-sm text-slate-600 dark:text-slate-350">
+                    <i data-lucide="phone" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i>
+                    <span>+7 (918) 340-19-65</span>
+                </div>
+                <div class="flex items-center space-x-3 text-sm text-slate-600 dark:text-slate-350">
+                    <i data-lucide="map-pin" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i>
+                    <span>г. Белореченск, пер. Космонавтов, 17/1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const phoneInput = document.querySelector('input[type="tel"]') || document.getElementById('id_phone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function (e) {
+                let num = e.target.value.replace(/\D/g, '');
+                if (num.startsWith('7') || num.startsWith('8')) {
+                    num = num.substring(1);
+                }
+                num = num.substring(0, 10);
+                
+                let formatted = '+7';
+                if (num.length > 0) formatted += '(' + num.substring(0, 3);
+                if (num.length >= 4) formatted += ')' + num.substring(3, 6);
+                if (num.length >= 7) formatted += '-' + num.substring(6, 8);
+                if (num.length >= 9) formatted += '-' + num.substring(8, 10);
+                
+                e.target.value = formatted;
+            });
+        }
+
+        const form = document.getElementById('ajaxBookingForm');
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                formData.append('ajax', 'true');
+
+                fetch('', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showSuccessToast("Менеджер получил вашу заявку и уже связывается с вами.");
+                        form.reset();
+                    }
+                });
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="space-y-16">
+    <!-- Адаптивный баннер -->
+    <div class="relative overflow-hidden p-8 sm:p-16 rounded-3xl transition-all duration-300 shadow-lg border 
+                bg-gradient-to-br from-indigo-50 via-slate-50 to-indigo-100 text-slate-900 border-slate-200/80
+                dark:from-slate-900 dark:via-slate-950 dark:to-indigo-950 dark:text-white dark:border-slate-800">
+        <div class="absolute -right-10 -top-10 w-48 h-48 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-2xl space-y-5">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-600/10 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400 border border-indigo-600/10 dark:border-indigo-500/20">
+                🚚 Профессиональный сервис грузовых авто
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-none">
+                Качественный ремонт и обслуживание вашего транспорта
+            </h1>
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                Полный спектр услуг по ремонту коммерческих автомобилей на СТО и быстрая логистика сыпучих материалов на выгодных условиях.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-4">
+                <a href="{% url 'catalog' %}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-2xl transition duration-150 shadow-md active:scale-95">
+                    Перейти к услугам и записи
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Раздел О нас -->
+    <div id="about-section" class="max-w-7xl mx-auto py-10 transition-colors duration-300 scroll-mt-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <span class="text-indigo-600 dark:text-indigo-400 text-sm font-bold uppercase tracking-wider">О компании</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">Современное грузовое СТО</h2>
+                <p class="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                    Мы — СТО, специализирующееся на обслуживании и ремонте грузовых автомобилей всех марок. Наши мастера имеют многолетний опыт работы с большегрузами и используют сертифицированное оборудование для диагностики и устранения неисправностей.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 rounded-2xl shadow-sm text-center">
+                        <p class="text-3xl font-black text-indigo-600 dark:text-indigo-400">10+</p>
+                        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Лет опыта</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 rounded-2xl shadow-sm text-center">
+                        <p class="text-3xl font-black text-indigo-600 dark:text-indigo-400">5000+</p>
+                        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Довольных клиентов</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="h-80 bg-slate-200 dark:bg-slate-850 rounded-3xl flex items-center justify-center shadow-sm overflow-hidden">
+                <span class="text-slate-400 dark:text-slate-500 font-bold">Фотографии мастерской СТО</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Карта и Адрес -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pt-4 border-t border-slate-200/50 dark:border-slate-850/50 py-10">
+        <div class="h-80 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2818.5191011447544!2d39.87655631570551!3d44.76069397909873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40f6c4f83a687acb%3A0x6c6d6e4ac9eaf8f1!2z0L_QtdGALiDQmtC-0YHQvNC-0L3QsNCy0YLQvtCyLCAxNy8xLCDQkdC10LvQvtGA0LXRh9C10L3RgdC6LCDQmtGA0LDRgdC90L7QtNCw0YDRgdC60LjQuSDQutGA0LDQuSwgMzUyNjMw!5e0!3m2!1sru!2sru!4v1645000000000!5m2!1sru!2sru" class="w-full h-full" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 h-full flex flex-col justify-center">
+            <h4 class="font-bold text-xl text-slate-900 dark:text-white">Режим работы СТО</h4>
+            <div class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                <div class="flex justify-between"><span>Понедельник - Пятница:</span><span>8:00 - 20:00</span></div>
+                <div class="flex justify-between"><span>Суббота:</span><span>9:00 - 18:00</span></div>
+                <div class="flex justify-between"><span>Воскресенье:</span><span>10:00 - 16:00</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Отзывы -->
+    <div class="max-w-7xl mx-auto py-10 space-y-12 border-t border-slate-200/50 dark:border-slate-850/50">
+        <div class="text-center space-y-2">
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">Отзывы клиентов</h2>
+            <p class="text-slate-500 dark:text-slate-400 text-lg font-medium">Мы ценим каждого нашего клиента и стремимся к совершенству</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Отзыв 1 -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-600 dark:text-slate-350">ЕВ</div>
+                        <div><h4 class="font-bold text-slate-900 dark:text-white text-sm">Егор Вязов</h4><p class="text-xs text-slate-400">Владелец КАМАЗ 5350</p></div>
+                    </div>
+                    <div class="text-yellow-400">⭐⭐⭐⭐⭐</div>
+                    <p class="text-sm text-slate-600 dark:text-slate-350 leading-relaxed">"Отличный сервис! Быстро диагностировали и устранили проблему с двигателем. Персонал вежливый и профессиональный."</p>
+                </div>
+                <div class="text-xs text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <p>Диагностика двигателя | 01.01.2025</p>
+                </div>
+            </div>
+
+            <!-- Отзыв 2 -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-600 dark:text-slate-350">ДА</div>
+                        <div><h4 class="font-bold text-slate-900 dark:text-white text-sm">Дмитрий Архипов</h4><p class="text-xs text-slate-400">Владелец Sitrak C7H</p></div>
+                    </div>
+                    <div class="text-yellow-400">⭐⭐⭐⭐</div>
+                    <p class="text-sm text-slate-600 dark:text-slate-350 leading-relaxed">"Отличное обслуживание. Исправили мёртвую зону руля, отремонтировали бензобак. Буду обращаться!"</p>
+                </div>
+                <div class="text-xs text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <p>Ремонт бензобака и рулевой | 20.06.2025</p>
+                </div>
+            </div>
+
+            <!-- Отзыв 3 -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-600 dark:text-slate-350">JD</div>
+                        <div><h4 class="font-bold text-slate-900 dark:text-white text-sm">Johnny Depp</h4><p class="text-xs text-slate-400">Владелец Scania R500</p></div>
+                    </div>
+                    <div class="text-yellow-400">⭐⭐⭐⭐⭐</div>
+                    <p class="text-sm text-slate-600 dark:text-slate-350 leading-relaxed text-xs">"Ребята быстро продиагностировали проблему: межвитковое замыкание в катушке второго цилиндра, плюс износ изоляции на сигнальном проводе с ЭБУ. Заменили катушку, перепиновали разъём, заложили новый участок проводки в гофру."</p>
+                </div>
+                <div class="text-xs text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <p>Компьютерная диагностика | 05.05.2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

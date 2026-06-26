@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Панель управления заказами{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Панель управления</h1>
+        <span class="text-xs font-bold bg-indigo-500/10 text-indigo-500 px-3 py-1.5 rounded-xl border border-indigo-500/20">
+            Менеджер: {{ user.username }}
+        </span>
+    </div>
+
+    <!-- Показатели сверху -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between transition-colors duration-300">
+            <div>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Всего заказов</p>
+                <p class="text-3xl font-black text-slate-900 dark:text-white mt-1">{{ total_count }}</p>
+            </div>
+            <div class="p-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-xl"><i data-lucide="bar-chart-2" class="w-6 h-6"></i></div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between transition-colors duration-300">
+            <div>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Новые</p>
+                <p class="text-3xl font-black text-yellow-600 mt-1">{{ new_count }}</p>
+            </div>
+            <div class="p-3 bg-yellow-50 dark:bg-yellow-950/40 text-yellow-600 dark:text-yellow-400 rounded-xl"><i data-lucide="clock" class="w-6 h-6"></i></div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between transition-colors duration-300">
+            <div>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Завершено</p>
+                <p class="text-3xl font-black text-green-600 mt-1">{{ completed_count }}</p>
+            </div>
+            <div class="p-3 bg-green-50 dark:bg-green-950/40 text-green-600 dark:text-green-400 rounded-xl"><i data-lucide="check-circle" class="w-6 h-6"></i></div>
+        </div>
+    </div>
+
+    <!-- Заявки -->
+    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-colors duration-300">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">Поступившие заявки</h2>
+        </div>
+
+        <div class="divide-y divide-slate-150 dark:divide-slate-800">
+            {% if requests %}
+                {% for req in requests %}
+                    <div class="p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:bg-slate-50/40 dark:hover:bg-slate-800/10 transition">
+                        <div class="space-y-3 flex-grow min-w-0">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-xs text-slate-400 dark:text-slate-500 font-semibold">Заявка отправлена: {{ req.created_at|date:"d.m.Y H:i" }}</span>
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-lg
+                                             {% if req.status == 'new' %}bg-yellow-500/10 text-yellow-600
+                                             {% elif req.status == 'in_progress' %}bg-blue-500/10 text-blue-600
+                                             {% else %}bg-green-500/10 text-green-600{% endif %}">
+                                    {{ req.get_status_display }}
+                                </span>
+                            </div>
+
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-14 bg-slate-50 dark:bg-slate-800 flex flex-col items-center justify-center rounded-xl border border-slate-200 dark:border-slate-700 transition-colors">
+                                    {% if req.service_type == 'repair' %}
+                                        <i data-lucide="wrench" class="w-5 h-5 text-indigo-500"></i>
+                                    {% else %}
+                                        <i data-lucide="truck" class="w-5 h-5 text-green-500"></i>
+                                    {% endif %}
+                                    <span class="text-[9px] font-bold text-slate-400 mt-1 uppercase">{% if req.service_type == 'repair' %}СТО{% else %}ГРУЗ{% endif %}</span>
+                                </div>
+                                <div class="min-w-0">
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white truncate">{{ req.client_name }}</h3>
+                                    <p class="text-sm font-semibold text-slate-500 dark:text-slate-400">Услуга: {{ req.get_service_type_display }}</p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-x-6 gap-y-1 text-xs font-bold">
+                                <span class="text-indigo-600 dark:text-indigo-400">📞 {{ req.phone }}</span>
+                                <span class="text-slate-400">📅 Запись на: {{ req.booking_date|date:"d.m.Y" }}</span>
+                            </div>
+
+                            {% if req.comment %}
+                                <!-- Исправлена утечка белого цвета: теперь блок идеально темный в темной теме -->
+                                <div class="bg-slate-100 dark:bg-slate-950 border-l-4 border-indigo-500 p-4 rounded-r-xl text-sm text-slate-700 dark:text-slate-300 mt-2 font-medium transition-colors">
+                                    <strong class="text-slate-900 dark:text-white block mb-1 text-xs uppercase tracking-wider">Детали:</strong> 
+                                    {{ req.comment }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Изменение статуса через три интерактивные кнопки в один клик -->
+                        <div class="flex-shrink-0 bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-200/50 dark:border-slate-800 transition-colors">
+                            <form method="POST" class="flex items-center gap-2">
+                                {% csrf_token %}
+                                <input type="hidden" name="request_id" value="{{ req.id }}">
+                                
+                                <button type="submit" name="status" value="new" 
+                                        class="px-3.5 py-2 text-xs font-bold rounded-xl border transition-all duration-150 active:scale-95
+                                               {% if req.status == 'new' %}bg-yellow-500/20 text-yellow-600 border-yellow-500/30{% else %}bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-850{% endif %}">
+                                    Новая
+                                </button>
+                                
+                                <button type="submit" name="status" value="in_progress" 
+                                        class="px-3.5 py-2 text-xs font-bold rounded-xl border transition-all duration-150 active:scale-95
+                                               {% if req.status == 'in_progress' %}bg-blue-500/20 text-blue-600 border-blue-500/30{% else %}bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-850{% endif %}">
+                                    В работе
+                                </button>
+                                
+                                <button type="submit" name="status" value="completed" 
+                                        class="px-3.5 py-2 text-xs font-bold rounded-xl border transition-all duration-150 active:scale-95
+                                               {% if req.status == 'completed' %}bg-green-500/20 text-green-600 border-green-500/30{% else %}bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-850{% endif %}">
+                                    Завершена
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center py-20 text-slate-400 space-y-2">
+                    <svg class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                    <p class="font-bold">Новых заявок нет</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
