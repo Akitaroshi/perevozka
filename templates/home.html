@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="space-y-16">
     <!-- Адаптивный баннер -->
@@ -46,10 +46,8 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="h-80 bg-slate-200 dark:bg-slate-850 rounded-3xl flex items-center justify-center shadow-sm overflow-hidden">
-                <span class="text-slate-400 dark:text-slate-500 font-bold">Фотографии мастерской СТО</span>
-            </div>
+        
+           <img src="{% static 'images.jpeg' %}" alt="СТО" class="h-96 w-full object-cover rounded-3xl shadow-sm">
         </div>
     </div>
 
