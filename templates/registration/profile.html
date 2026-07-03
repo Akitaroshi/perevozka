@@ -1,22 +1,80 @@
 {% extends 'base.html' %}
 
-{% block title %}Личный кабинет - Fan-Sport{% endblock %}
+{% block title %}Личный кабинет - ТРАНС-СЕРВИС{% endblock %}
 
 {% block content %}
-<div class="max-w-xl mx-auto bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm mt-10 transition-colors duration-300">
-    <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-6">Личный кабинет</h2>
-    <div class="space-y-4">
-        <div class="flex border-b border-slate-100 dark:border-slate-800 pb-3">
-            <span class="w-1/3 text-slate-500 dark:text-slate-400 font-medium">Имя пользователя:</span>
-            <span class="w-2/3 text-slate-900 dark:text-white font-semibold">{{ user.username }}</span>
+<div class="max-w-4xl mx-auto space-y-8 mt-6">
+    <!-- Данные пользователя -->
+    <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+        <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-6">Профиль клиента</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div class="flex border-b border-slate-100 dark:border-slate-800 pb-3">
+                <span class="w-1/2 text-slate-500 dark:text-slate-400 font-medium">Имя пользователя:</span>
+                <span class="w-1/2 text-slate-900 dark:text-white font-bold">{{ user.username }}</span>
+            </div>
+            <div class="flex border-b border-slate-100 dark:border-slate-800 pb-3">
+                <span class="w-1/2 text-slate-500 dark:text-slate-400 font-medium">Email:</span>
+                <span class="w-1/2 text-slate-900 dark:text-white font-medium">{{ user.email|default:"Не указан" }}</span>
+            </div>
         </div>
-        <div class="flex border-b border-slate-100 dark:border-slate-800 pb-3">
-            <span class="w-1/3 text-slate-500 dark:text-slate-400 font-medium">Email:</span>
-            <span class="w-2/3 text-slate-900 dark:text-white">{{ user.email|default:"Не указан" }}</span>
+    </div>
+
+    <!-- Мои заявки -->
+    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-colors duration-300">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">Мои заказы и заявки</h2>
         </div>
-        <div class="flex pb-3">
-            <span class="w-1/3 text-slate-500 dark:text-slate-400 font-medium">Статус:</span>
-            <span class="w-2/3 text-green-600 dark:text-green-400 font-semibold">Активен</span>
+
+        <div class="divide-y divide-slate-150 dark:divide-slate-800">
+            {% if bookings %}
+                {% for booking in bookings %}
+                    <div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-xs text-slate-400 font-semibold">{{ booking.created_at|date:"d.m.Y H:i" }}</span>
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-lg
+                                             {% if booking.status == 'new' %}bg-yellow-500/10 text-yellow-600
+                                             {% elif booking.status == 'in_progress' %}bg-blue-500/10 text-blue-600
+                                             {% else %}bg-green-500/10 text-green-600{% endif %}">
+                                    {{ booking.get_status_display }}
+                                </span>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ booking.get_service_type_display }}</h3>
+                            <p class="text-xs text-slate-400">Желаемая дата визита: {{ booking.booking_date|date:"d.m.Y" }}</p>
+                            
+                            <!-- Метка Оплаты -->
+                            <div>
+                                {% if booking.is_paid %}
+                                    <span class="inline-flex items-center space-x-1 text-xs font-bold text-green-600 dark:text-green-400 bg-green-500/10 px-2.5 py-1 rounded-lg">
+                                        <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+                                        <span>Оплачено в ЮKassa</span>
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg">
+                                        Ожидает оплаты
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Кнопка Оплаты -->
+                        <div class="flex-shrink-0">
+                            {% if not booking.is_paid %}
+                                <a href="/payment/{{ booking.id }}/" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition active:scale-95 shadow-sm">
+                                    Оплатить {{ booking.price }} ₽
+                                </a>
+                            {% else %}
+                                <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400">{{ booking.price }} ₽</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center py-12 text-slate-400">
+                    <p class="font-bold">Вы еще не отправляли заявок</p>
+                    <a href="{% url 'catalog' %}" class="text-indigo-500 underline text-sm mt-1 inline-block">Оформить первую запись</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

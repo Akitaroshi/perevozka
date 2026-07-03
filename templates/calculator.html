@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}Конструктор стоимости — ТРАНС-СЕРВИС{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-8 py-6">
+    <div class="text-center space-y-2">
+        <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">Конструктор стоимости</h1>
+        <p class="text-slate-500 dark:text-slate-400 font-medium">Рассчитайте ориентировочную стоимость услуг за пару секунд</p>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-lg space-y-6 transition-colors duration-300">
+        <!-- Выбор направления -->
+        <div class="space-y-3">
+            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider">Какая услуга вас интересует?</label>
+            <div class="grid grid-cols-2 gap-4">
+                <button type="button" onclick="selectType('cargo')" id="btn-cargo" class="py-4 px-6 rounded-2xl border-2 font-bold text-center transition active:scale-95 border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 bg-indigo-50/10 dark:bg-indigo-950/20">
+                    🚛 Доставка грузов
+                </button>
+                <button type="button" onclick="selectType('repair')" id="btn-repair" class="py-4 px-6 rounded-2xl border-2 font-bold text-center transition active:scale-95 border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                    🔧 Ремонт авто
+                </button>
+            </div>
+        </div>
+
+        <!-- Блок расчёта ПЕРЕВОЗКИ СЫПУЧИХ ГРУЗОВ -->
+        <div id="block-cargo" class="space-y-6">
+            <!-- Расстояние -->
+            <div class="space-y-2">
+                <div class="flex justify-between font-bold text-sm">
+                    <span class="text-slate-700 dark:text-slate-350">Расстояние доставки:</span>
+                    <span class="text-indigo-600 dark:text-indigo-400" id="val-distance">100 км</span>
+                </div>
+                <input type="range" id="range-distance" min="10" max="1000" value="100" oninput="calculate()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+            </div>
+
+            <!-- Вес груза -->
+            <div class="space-y-2">
+                <div class="flex justify-between font-bold text-sm">
+                    <span class="text-slate-700 dark:text-slate-350">Вес сыпучих материалов:</span>
+                    <span class="text-indigo-600 dark:text-indigo-400" id="val-weight">15 тонн</span>
+                </div>
+                <input type="range" id="range-weight" min="5" max="80" value="15" oninput="calculate()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+            </div>
+        </div>
+
+        <!-- Блок расчёта РЕМОНТА АВТО -->
+        <div id="block-repair" class="space-y-4 hidden">
+            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider">Выберите требующие ремонта разделы:</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label class="flex items-center space-x-3 p-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-900 transition">
+                    <input type="checkbox" id="check-engine" onchange="calculate()" class="h-4 w-4 rounded text-indigo-600 accent-indigo-600">
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Двигатель (+15 000 ₽)</span>
+                </label>
+                <label class="flex items-center space-x-3 p-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-900 transition">
+                    <input type="checkbox" id="check-brakes" onchange="calculate()" class="h-4 w-4 rounded text-indigo-600 accent-indigo-600">
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Тормозная система (+5 000 ₽)</span>
+                </label>
+                <label class="flex items-center space-x-3 p-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-900 transition">
+                    <input type="checkbox" id="check-electric" onchange="calculate()" class="h-4 w-4 rounded text-indigo-600 accent-indigo-600">
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Электрика и ЭБУ (+6 000 ₽)</span>
+                </label>
+                <label class="flex items-center space-x-3 p-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-900 transition">
+                    <input type="checkbox" id="check-suspension" onchange="calculate()" class="h-4 w-4 rounded text-indigo-600 accent-indigo-600">
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Подвеска и оси (+8 000 ₽)</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Расчёт -->
+        <div class="border-t border-slate-100 dark:border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Ориентировочная стоимость</p>
+                <p class="text-3xl font-black text-indigo-600 dark:text-indigo-400 mt-1" id="val-total">0 ₽</p>
+            </div>
+           <a href="/catalog/#booking-section" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-8 rounded-2xl transition active:scale-95 shadow-md">
+    Перейти к оформлению
+</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentType = 'cargo';
+
+    function selectType(type) {
+        currentType = type;
+        const btnCargo = document.getElementById('btn-cargo');
+        const btnRepair = document.getElementById('btn-repair');
+        const blockCargo = document.getElementById('block-cargo');
+        const blockRepair = document.getElementById('block-repair');
+
+        const activeClass = ['border-indigo-600', 'text-indigo-600', 'dark:border-indigo-400', 'dark:text-indigo-400', 'bg-indigo-50/10', 'dark:bg-indigo-950/20'];
+        const inactiveClass = ['border-slate-200', 'dark:border-slate-800', 'text-slate-500', 'dark:text-slate-400', 'hover:bg-slate-50', 'dark:hover:bg-slate-800/40'];
+
+        if (type === 'cargo') {
+            btnCargo.classList.remove(...inactiveClass);
+            btnCargo.classList.add(...activeClass);
+            btnRepair.classList.remove(...activeClass);
+            btnRepair.classList.add(...inactiveClass);
+
+            blockCargo.classList.remove('hidden');
+            blockRepair.classList.add('hidden');
+        } else {
+            btnRepair.classList.remove(...inactiveClass);
+            btnRepair.classList.add(...activeClass);
+            btnCargo.classList.remove(...activeClass);
+            btnCargo.classList.add(...inactiveClass);
+
+            blockRepair.classList.remove('hidden');
+            blockCargo.classList.add('hidden');
+        }
+        calculate();
+    }
+
+    function calculate() {
+        let total = 0;
+
+        if (currentType === 'cargo') {
+            const distance = parseInt(document.getElementById('range-distance').value);
+            const weight = parseInt(document.getElementById('range-weight').value);
+
+            document.getElementById('val-distance').innerText = distance + ' км';
+            document.getElementById('val-weight').innerText = weight + ' тонн';
+
+            // Формула: 900 руб за тонну груза + 75 руб за каждый километр
+            total = (weight * 900) + (distance * 75);
+        } else {
+            // Базовый осмотр и приемка
+            total = 1500; 
+            
+            if (document.getElementById('check-engine').checked) total += 15000;
+            if (document.getElementById('check-brakes').checked) total += 5000;
+            if (document.getElementById('check-electric').checked) total += 6000;
+            if (document.getElementById('check-suspension').checked) total += 8000;
+        }
+
+        document.getElementById('val-total').innerText = total.toLocaleString('ru-RU') + ' ₽';
+    }
+
+    document.addEventListener('DOMContentLoaded', calculate);
+</script>
+{% endblock %}

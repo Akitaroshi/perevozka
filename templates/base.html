@@ -33,23 +33,19 @@
     <nav class="bg-white/90 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                
-                <div class="flex items-center space-x-4 sm:space-x-6">
-                    <a href="{% url 'home' %}" class="text-xl font-black tracking-tight text-indigo-600 dark:text-indigo-400">ТРАНС-СЕРВИС</a>
-                    <div class="hidden sm:block h-6 w-px bg-slate-200 dark:bg-slate-800"></div>
-                    
-                    <div class="flex items-center space-x-4 sm:space-x-6">
-                        <!-- Изменены ссылки на реальные страницы вместо якорей -->
-                        <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}text-indigo-600 dark:text-indigo-400 font-bold border-b-2 border-indigo-600 dark:border-indigo-400 pb-1{% else %}text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium{% endif %} transition duration-150 text-xs sm:text-sm">Главная</a>
-                        <span class="text-slate-300 dark:text-slate-700 text-xs">|</span>
-                        <a href="{% url 'catalog' %}" class="{% if request.resolver_match.url_name == 'catalog' %}text-indigo-600 dark:text-indigo-400 font-bold border-b-2 border-indigo-600 dark:border-indigo-400 pb-1{% else %}text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium{% endif %} transition duration-150 text-xs sm:text-sm">Услуги</a>
-                        
-                        {% if user.is_staff or user.is_superuser %}
-                            <span class="text-slate-300 dark:text-slate-700 text-xs">|</span>
-                            <a href="{% url 'manager_dashboard' %}" class="{% if request.resolver_match.url_name == 'manager_dashboard' %}text-indigo-600 dark:text-indigo-400 font-bold border-b-2 border-indigo-600 dark:border-indigo-400 pb-1{% else %}text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium{% endif %} transition duration-150 text-xs sm:text-sm">Панель</a>
-                        {% endif %}
-                    </div>
-                </div>
+              <div class="flex items-center space-x-4 sm:space-x-6">
+    <!-- Прямые безопасные пути, которые никогда не вызовут ошибку рендеринга -->
+    <a href="/" class="{% if request.path == '/' %}text-indigo-600 dark:text-indigo-400 font-bold border-b-2 border-indigo-600 dark:border-indigo-400 pb-1{% else %}text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium{% endif %} transition duration-150 text-xs sm:text-sm">Главная и О нас</a>
+    <span class="text-slate-300 dark:text-slate-700 text-xs">|</span>
+    <a href="/catalog/" class="{% if request.path == '/catalog/' %}text-indigo-600 dark:text-indigo-400 font-bold border-b-2 border-indigo-600 dark:border-indigo-400 pb-1{% else %}text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium{% endif %} transition duration-150 text-xs sm:text-sm">Услуги и Запись</a>
+    <span class="text-slate-300 dark:text-slate-700 text-xs">|</span>
+    <a href="/calculator/" class="{% if request.path == '/calculator/' %}text-indigo-600 dark:text-indigo-400 font-bold border-b-2 border-indigo-600 dark:border-indigo-400 pb-1{% else %}text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium{% endif %} transition duration-150 text-xs sm:text-sm">Конструктор цены</a>
+    
+    {% if user.is_staff or user.is_superuser %}
+        <span class="text-slate-300 dark:text-slate-700 text-xs">|</span>
+        <a href="/manager/" class="{% if request.path == '/manager/' %}text-indigo-600 dark:text-indigo-400 font-bold border-b-2 border-indigo-600 dark:border-indigo-400 pb-1{% else %}text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium{% endif %} transition duration-150 text-xs sm:text-sm">Панель менеджера</a>
+    {% endif %}
+</div>
                 
                 <div class="flex items-center space-x-4">
                     <!-- Смена темы -->

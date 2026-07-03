@@ -5,8 +5,23 @@ from .models import BookingRequest
 from .forms import BookingForm
 
 def home_view(request):
-    """Главная страница (Объединенная с О нас)"""
-    return render(request, 'home.html')
+    """Главная страница компании с услугами и формой отправки заявки"""
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            if request.user.is_authenticated:
+                booking.user = request.user
+            booking.save()
+            
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.POST.get('ajax') == 'true':
+                return JsonResponse({'success': True})
+                
+            return render(request, 'home.html', {'form': BookingForm(), 'success': True})
+    else:
+        form = BookingForm()
+        
+    return render(request, 'home.html', {'form': form})
 
 def catalog_view(request):
     """Отдельная страница услуг и онлайн-записи с AJAX"""
@@ -53,3 +68,21 @@ def manager_dashboard(request):
         'completed_count': completed_count,
     }
     return render(request, 'manager.html', context)
+
+def calculator_view(request):
+    """Страница интерактивного конструктора стоимости"""
+    return render(request, 'calculator.html')
+
+# ВОТ ЭТА ФУНКЦИЯ ТЕПЕРЬ НА МЕСТЕ:
+@login_required
+def payment_view(request, booking_id):
+    """Симулятор безопасных платежей ЮKassa"""
+    booking = get_object_or_404(BookingRequest, id=booking_id, user=request.user)
+    
+    if request.method == 'POST':
+        booking.is_paid = True
+        booking.status = 'in_progress' # Переводим в статус "В работе"
+        booking.save()
+        return render(request, 'payment_success.html', {'booking': booking})
+        
+    return render(request, 'payment_page.html', {'booking': booking})
