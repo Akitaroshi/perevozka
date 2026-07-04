@@ -21,10 +21,23 @@ class BookingRequest(models.Model):
     comment = models.TextField(verbose_name="Комментарий", blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new', verbose_name="Статус")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    
+    # НОВЫЕ ПОЛЯ ДЛЯ СИМУЛЯЦИИ ОПЛАТЫ:
+    is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=15000.00, verbose_name="Цена (₽)")
 
     class Meta:
         verbose_name = "Заявка"
         verbose_name_plural = "Заявки"
+
+    def save(self, *args, **kwargs):
+        # Автоматический расчет стоимости при сохранении в базу
+        if not self.price or self.price == 15000.00:
+            if self.service_type == 'repair':
+                self.price = 25000.00 # Ремонт грузовика
+            else:
+                self.price = 45000.00 # Перевозка сыпучих материалов
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Заявка #{self.id} — {self.client_name} ({self.get_service_type_display()})"

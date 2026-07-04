@@ -5,7 +5,6 @@ from .models import BookingRequest
 from .forms import BookingForm
 
 def home_view(request):
-    """Главная страница компании с услугами и формой отправки заявки"""
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
@@ -24,7 +23,6 @@ def home_view(request):
     return render(request, 'home.html', {'form': form})
 
 def catalog_view(request):
-    """Отдельная страница услуг и онлайн-записи с AJAX"""
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
@@ -70,13 +68,10 @@ def manager_dashboard(request):
     return render(request, 'manager.html', context)
 
 def calculator_view(request):
-    """Страница интерактивного конструктора стоимости"""
     return render(request, 'calculator.html')
 
-# ВОТ ЭТА ФУНКЦИЯ ТЕПЕРЬ НА МЕСТЕ:
 @login_required
 def payment_view(request, booking_id):
-    """Симулятор безопасных платежей ЮKassa"""
     booking = get_object_or_404(BookingRequest, id=booking_id, user=request.user)
     
     if request.method == 'POST':

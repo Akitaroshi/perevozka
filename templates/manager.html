@@ -72,16 +72,17 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-wrap gap-x-6 gap-y-1 text-xs font-bold">
-                                <span class="text-indigo-600 dark:text-indigo-400">📞 {{ req.phone }}</span>
-                                <span class="text-slate-400">📅 Запись на: {{ req.booking_date|date:"d.m.Y" }}</span>
-                                {% if req.is_paid %}
-        <span class="text-green-600 dark:text-green-400 bg-green-500/10 px-2 py-0.5 rounded-lg">✓ Оплачено в ЮKassa</span>
-    {% else %}
-        <span class="text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-lg">Ожидает оплаты</span>
-    {% endif %}
-</div>
-                            </div>
+                           <div class="flex flex-wrap gap-x-6 gap-y-1 text-xs font-bold">
+    <span class="text-indigo-600 dark:text-indigo-400">📞 {{ req.phone }}</span>
+    <span class="text-slate-400">📅 Запись на: {{ req.booking_date|date:"d.m.Y" }}</span>
+    
+pup                                        {% if req.is_paid %}
+                                            <span class="text-green-600 dark:text-green-400 bg-green-500/10 px-2 py-0.5 rounded-lg">✓ Оплачено в ЮKassa</span>
+                                        {% else %}
+                                            <span class="text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-lg">Ожидает оплаты</span>
+                                        {% endif %}
+                                    </div>
+                                                                
 
                             {% if req.comment %}
                                 <!-- Исправлена утечка белого цвета: теперь блок идеально темный в темной теме -->
